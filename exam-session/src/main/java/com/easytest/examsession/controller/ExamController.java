@@ -35,8 +35,8 @@ public class ExamController {
     }
 
     @GetMapping("{id}/get-score")
-    public ResponseEntity<Integer> getScoreForExamSessionTakenByStudent(@PathVariable("id") Long examId, @RequestBody AnswerResponseDto answerResponseDto){
-        return new ResponseEntity<>(examService.getScoreForExam(examId, answerResponseDto), HttpStatus.OK);
+    public ResponseEntity<Integer> submitResponseForExamSession(@PathVariable("id") Long examId, @RequestBody AnswerResponseDto answerResponseDto){
+        return new ResponseEntity<>(examService.submitResponseForExamSession(examId, answerResponseDto), HttpStatus.OK);
     }
 
 }

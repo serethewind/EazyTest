@@ -25,7 +25,7 @@ public class ExamService implements ExamServiceInterface{
     }
 
     @Override
-    public Integer getScoreForExam(Long examId, AnswerResponseDto answerResponseDto) {
+    public Integer submitResponseForExamSession(Long examId, AnswerResponseDto answerResponseDto) {
         return null;
     }
 }

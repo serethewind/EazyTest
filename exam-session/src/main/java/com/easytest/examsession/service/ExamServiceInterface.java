@@ -9,6 +9,6 @@ public interface ExamServiceInterface {
     ResponseDto createQuizSession(ExamRequestDto examRequestDto);
     ExamResponseDto fetchExamSessionById(Long examId);
 
-    Integer getScoreForExam(Long examId, AnswerResponseDto answerResponseDto); //can return a well documented response instead of an integer
+    Integer submitResponseForExamSession(Long examId, AnswerResponseDto answerResponseDto); //can return a well documented response instead of an integer
 
 }
