@@ -1,4 +1,4 @@
-package com.easytest.questionbank.dto;
+package com.easytest.examsession.dto.communicaton;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class ResponseDto {
-    private long id;
-    private String responseCode;
-    private String responseMessage;
+public class AnswerResponseDto {
+
+    private Long id;
+    private String response;
 }

@@ -1,4 +1,4 @@
-package com.easytest.questionbank.dto;
+package com.easytest.examsession.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
