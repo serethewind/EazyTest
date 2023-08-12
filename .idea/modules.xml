@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/EasyTest Solutions.iml" filepath="$PROJECT_DIR$/.idea/EasyTest Solutions.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.easytest.exam-session.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.easytest.exam-session.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.easytest.question-bank.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.easytest.question-bank.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/exam-session.main.iml" filepath="$PROJECT_DIR$/.idea/modules/exam-session.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/identity-management.main.iml" filepath="$PROJECT_DIR$/.idea/modules/identity-management.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/question-bank.main.iml" filepath="$PROJECT_DIR$/.idea/modules/question-bank.main.iml" />
     </modules>
   </component>
