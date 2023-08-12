@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class ResponseDto {
-    private long id;
     private String responseCode;
     private String responseMessage;
 }

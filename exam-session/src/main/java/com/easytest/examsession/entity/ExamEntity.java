@@ -1,10 +1,8 @@
 package com.easytest.examsession.entity;
 
-import com.easytest.examsession.dto.communicaton.QuestionViewDto;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +16,8 @@ public class ExamEntity {
     @Id
     private Long id;
     private String title;
-    private List<QuestionViewDto> questionViewDtoList = new ArrayList<>();
-
+    private String category;
+    @ElementCollection
+    private List<Long> questionId;
+//    private List<QuestionViewDto> questionViewDtoList = new ArrayList<>();
 }

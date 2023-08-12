@@ -1,6 +1,6 @@
 package com.easytest.examsession.dto;
 
-import com.easytest.examsession.dto.communicaton.QuestionViewDto;
+import com.easytest.examsession.feignClient.dto.QuestionResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,5 +15,5 @@ import java.util.List;
 public class ExamResponseDto {
     private Long id;
     private String title;
-    private List<QuestionViewDto> listOfQuestions;
+    private List<QuestionResponseDto> listOfQuestions;
 }

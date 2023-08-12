@@ -1,4 +1,4 @@
-package com.easytest.examsession.dto.communicaton;
+package com.easytest.examsession.feignClient.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

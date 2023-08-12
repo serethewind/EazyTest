@@ -1,4 +1,4 @@
-package com.easytest.examsession.dto.communicaton;
+package com.easytest.examsession.feignClient.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Data
-public class QuestionViewDto {
-
+@Builder
+public class QuestionResponseDto {
     private long id;
     private String title;
     private String option1;
