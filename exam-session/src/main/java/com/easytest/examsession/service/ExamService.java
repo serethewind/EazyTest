@@ -48,6 +48,7 @@ public class ExamService implements ExamServiceInterface{
                 .build();
     }
 
+
     @Override
     public Integer calculateScoreForExamSession(Long examId, List<AnswerResponseDto> answerResponseDto) {
         ExamEntity examEntity = examRepository.findById(examId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

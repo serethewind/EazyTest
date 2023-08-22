@@ -20,6 +20,11 @@ public class QuestionController {
 
     private QuestionServiceInterface questionService;
 
+    @GetMapping("welcome")
+    public ResponseEntity<String> getWelcome(){
+        return ResponseEntity.ok("Welcome");
+    }
+
     @GetMapping
     public ResponseEntity<List<QuestionResponseDto>> getAllQuestions(){
         return new ResponseEntity<>(questionService.getAllQuestions(), HttpStatus.OK);
