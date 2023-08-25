@@ -40,6 +40,11 @@ public class QuestionController {
         return new ResponseEntity<>(questionService.addQuestion(questionRequestDto), HttpStatus.CREATED);
     }
 
+    @GetMapping("/create-multiple-questions")
+    public ResponseEntity<List<ResponseDto>> createMultipleQuestions(@RequestBody List<QuestionRequestDto> questionRequestDtoList){
+        return new ResponseEntity<>(questionService.addMultipleQuestions(questionRequestDtoList), HttpStatus.CREATED);
+    }
+
     @PutMapping("{id}")
     public ResponseEntity<ResponseDto> updateQuestion(@RequestBody QuestionRequestDto questionRequestDto, @PathVariable("id") Long questionId){
         return new ResponseEntity<>(questionService.updateQuestion(questionRequestDto, questionId), HttpStatus.OK);

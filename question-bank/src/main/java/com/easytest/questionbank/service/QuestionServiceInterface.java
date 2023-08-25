@@ -15,6 +15,8 @@ public interface QuestionServiceInterface {
 
     ResponseDto addQuestion(QuestionRequestDto questionRequestDto);
 
+    List<ResponseDto> addMultipleQuestions(List<QuestionRequestDto> questionRequestDtoList);
+
     ResponseDto updateQuestion(QuestionRequestDto questionRequestDto, Long questionId);
 
     ResponseDto deleteQuestion(Long questionId);

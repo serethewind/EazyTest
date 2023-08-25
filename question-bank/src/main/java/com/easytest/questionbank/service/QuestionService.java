@@ -70,6 +70,25 @@ public class QuestionService implements QuestionServiceInterface {
     }
 
     @Override
+    public List<ResponseDto> addMultipleQuestions(List<QuestionRequestDto> questionRequestDtoList) {
+        return questionRequestDtoList.stream().map((questionRequestDto) -> questionRepository.save(
+                 QuestionEntity.builder()
+                         .title(questionRequestDto.getTitle())
+                         .option1(questionRequestDto.getOption1())
+                         .option2(questionRequestDto.getOption2())
+                         .option3(questionRequestDto.getOption3())
+                         .option4(questionRequestDto.getOption4())
+                         .rightAnswer(questionRequestDto.getRightAnswer())
+                         .difficultyLevel(questionRequestDto.getDifficultyLevel())
+                         .build()
+         )).map(questionEntity -> ResponseDto.builder()
+                .id(questionEntity.getId())
+                .responseCode("")
+                .responseMessage("")
+                .build()).collect(Collectors.toList());
+    }
+
+    @Override
     public ResponseDto updateQuestion(QuestionRequestDto questionRequestDto, Long questionId) {
         QuestionEntity questionEntity = questionRepository.findById(questionId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         modelMapper.map(questionRequestDto, questionEntity);
