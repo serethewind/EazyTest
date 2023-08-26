@@ -27,7 +27,5 @@ public class SecurityConfig {
                                 .anyExchange().authenticated()
                 ).oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec.jwt(jwtSpec -> jwtSpec.jwtAuthenticationConverter(jwtAuthConverter)));
         return httpSecurity.build();
-
-
     }
 }
