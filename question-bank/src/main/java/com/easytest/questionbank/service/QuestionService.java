@@ -7,6 +7,7 @@ import com.easytest.questionbank.dto.communication.AnswerResponseDto;
 import com.easytest.questionbank.entity.QuestionEntity;
 import com.easytest.questionbank.repository.QuestionRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class QuestionService implements QuestionServiceInterface {
     private ModelMapper modelMapper;
 
@@ -28,6 +30,7 @@ public class QuestionService implements QuestionServiceInterface {
     public List<QuestionResponseDto> getAllQuestions() {
         return questionRepository.findAll().stream().map(question ->
                 QuestionResponseDto.builder()
+                        .id(question.getId())
                         .title(question.getTitle())
                         .option1(question.getOption1())
                         .option2(question.getOption2())
@@ -53,6 +56,7 @@ public class QuestionService implements QuestionServiceInterface {
     public ResponseDto addQuestion(QuestionRequestDto questionRequestDto) {
         QuestionEntity questionEntity = QuestionEntity.builder()
                 .title(questionRequestDto.getTitle())
+                .examCategory(questionRequestDto.getExamCategory())
                 .option1(questionRequestDto.getOption1())
                 .option2(questionRequestDto.getOption2())
                 .option3(questionRequestDto.getOption3())
@@ -74,6 +78,7 @@ public class QuestionService implements QuestionServiceInterface {
         return questionRequestDtoList.stream().map((questionRequestDto) -> questionRepository.save(
                  QuestionEntity.builder()
                          .title(questionRequestDto.getTitle())
+                         .examCategory(questionRequestDto.getExamCategory())
                          .option1(questionRequestDto.getOption1())
                          .option2(questionRequestDto.getOption2())
                          .option3(questionRequestDto.getOption3())
@@ -114,7 +119,7 @@ public class QuestionService implements QuestionServiceInterface {
 
     @Override
     public List<Long> generateQuestionsForQuiz(String category, Integer numberOfQuestions) {
-        List<Long> listOfQuestions = questionRepository.findByExamCategory(category).stream().map(QuestionEntity::getId).collect(Collectors.toList());
+        List<Long> listOfQuestions = questionRepository.findAll().stream().filter(questionEntity -> String.valueOf(questionEntity.getExamCategory()).equalsIgnoreCase(category)).map(QuestionEntity::getId).collect(Collectors.toList());
         Collections.shuffle(listOfQuestions);
         return listOfQuestions.subList(0, Math.min(numberOfQuestions, listOfQuestions.size()));
     }

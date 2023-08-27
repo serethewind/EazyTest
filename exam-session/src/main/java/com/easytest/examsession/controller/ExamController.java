@@ -39,4 +39,5 @@ public class ExamController {
     public ResponseEntity<ResponseDto> createQuizSession(@RequestBody ExamRequestDto examRequestDto) {
         return new ResponseEntity<>(examService.createQuizSession(examRequestDto), HttpStatus.CREATED);
     }
+
 }

@@ -21,7 +21,7 @@ public class SecurityConfig {
         httpSecurity.csrf(csrf -> csrf.disable())
                 .authorizeExchange(authorize ->
                         authorize.pathMatchers("/eureka/**").permitAll()
-                                .pathMatchers("/api/v1/quiz-session/participant/**").hasAnyRole("USER, ADMIN")
+                                .pathMatchers("/api/v1/quiz-session/participant/**").hasAnyRole("USER", "ADMIN")
                                 .pathMatchers("/api/v1/quiz-session/examiner/**").hasRole("ADMIN")
                                 .pathMatchers("/api/v1/question/**").hasRole("ADMIN")
                                 .anyExchange().authenticated()

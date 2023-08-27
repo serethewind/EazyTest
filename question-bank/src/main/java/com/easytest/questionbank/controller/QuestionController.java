@@ -59,7 +59,7 @@ public class QuestionController {
         return new ResponseEntity<>(questionService.generateQuestionsForQuiz(category, numberOfQuestions), HttpStatus.OK);
     }
 
-    @GetMapping("retrieve-generated-questions")
+    @PostMapping("retrieve-generated-questions")
     public ResponseEntity<List<QuestionResponseDto>> getQuestionsBasedOnId(@RequestBody List<Long> questionIds){
         return new ResponseEntity<>(questionService.getQuestionsBasedOnId(questionIds), HttpStatus.OK);
     }

@@ -13,4 +13,5 @@ public interface ExamServiceInterface {
 
     Integer calculateScoreForExamSession(Long examId, List<AnswerResponseDto> answerResponseDto); //can return a well documented response instead of an integer
 
+    List<ExamResponseDto> fetchExamSession();
 }
