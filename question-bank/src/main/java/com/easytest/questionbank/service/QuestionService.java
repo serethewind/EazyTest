@@ -134,6 +134,7 @@ public class QuestionService implements QuestionServiceInterface {
     @Override
     public List<QuestionResponseDto> getQuestionsBasedOnId(List<Long> questionIds) {
         return questionIds.stream().map(id -> questionRepository.findById(id).get()).map(question -> QuestionResponseDto.builder()
+                .id(question.getId())
                 .title(question.getTitle())
                 .option1(question.getOption1())
                 .option2(question.getOption2())
