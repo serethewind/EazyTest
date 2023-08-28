@@ -1,8 +1,10 @@
 package com.easytest.examsession.service;
 
+import com.easytest.examsession.communicationConfig.RabbitMQProducer;
 import com.easytest.examsession.dto.ExamRequestDto;
 import com.easytest.examsession.dto.ExamResponseDto;
 import com.easytest.examsession.dto.ResponseDto;
+import com.easytest.examsession.dto.communication.EmailDetails;
 import com.easytest.examsession.feignClient.dto.AnswerResponseDto;
 import com.easytest.examsession.entity.ExamEntity;
 import com.easytest.examsession.feignClient.FeignClientInterceptor;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
 public class ExamService implements ExamServiceInterface{
     private FeignClientInterceptor feignClient;
     private ExamRepository examRepository;
+    private RabbitMQProducer rabbitMQProducer;
 
     @Override
     public ResponseDto createQuizSession(ExamRequestDto examRequestDto) {
@@ -35,6 +38,14 @@ public class ExamService implements ExamServiceInterface{
                 .build();
         examRepository.save(examEntity);
 
+        EmailDetails emailDetails = EmailDetails.builder()
+                .recipient("osasereu@gmail.com")
+                .message("Hello, you just viewed a new exam session. Do take note of the session id: " + examEntity.getId() + ". Exam session title generated " + examEntity.getTitle())
+                .subject("EXAM SESSION SUCCESSFULLY CREATED")
+                .build();
+
+        rabbitMQProducer.sendCreateQuizSessionEmailNotification(emailDetails);
+        log.info(emailDetails + "created session sent just now");
         return ResponseDto.builder()
                 .responseCode("")
                 .responseMessage("Successfully created")
@@ -45,10 +56,17 @@ public class ExamService implements ExamServiceInterface{
     public ExamResponseDto getQuestionsForExamSession(Long examId) {
        ExamEntity examEntity = examRepository.findById(examId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        log.info("size of the list is " + String.valueOf(examEntity.getQuestionId().size()));
+//        log.info("size of the list is " + String.valueOf(examEntity.getQuestionId().size()));
 
        List<QuestionResponseDto> questionList = feignClient.getQuestionsBasedOnId(examEntity.getQuestionId()).getBody();
-        log.info(String.valueOf(questionList.size()));
+
+       EmailDetails emailDetails = EmailDetails.builder()
+               .recipient("osasereu@gmail.com")
+               .message("Hello, you just viewed a new exam session. Do take note of the session id: " + examEntity.getId() + ". Exam session title generated " + examEntity.getTitle())
+               .subject("EXAM SESSION SUCCESSFULLY FETCHED")
+               .build();
+       rabbitMQProducer.sendViewQuizSessionEmailNotification(emailDetails);
+        log.info(emailDetails + "viewed session sent just now");
 //       return the exam i.e. the title and the actual questions associated with the question Ids stored using feign client
         return ExamResponseDto.builder()
                 .id(examEntity.getId())

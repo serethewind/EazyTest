@@ -27,7 +27,7 @@ public class ParticipantController {
         return new ResponseEntity<>(examService.getQuestionsForExamSession(examId), HttpStatus.OK);
     }
 
-    @GetMapping("{id}/get-score")
+    @PostMapping("{id}/get-score")
     public ResponseEntity<Integer> submitAndGetScoreForExamSession(@PathVariable("id") Long examId, @RequestBody List<AnswerResponseDto> answerResponseDto){
         return new ResponseEntity<>(examService.calculateScoreForExamSession(examId, answerResponseDto), HttpStatus.OK);
     }
