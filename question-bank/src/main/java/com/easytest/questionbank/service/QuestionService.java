@@ -6,6 +6,7 @@ import com.easytest.questionbank.dto.ResponseDto;
 import com.easytest.questionbank.dto.communication.AnswerResponseDto;
 import com.easytest.questionbank.entity.QuestionEntity;
 import com.easytest.questionbank.repository.QuestionRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -27,6 +28,7 @@ public class QuestionService implements QuestionServiceInterface {
     private QuestionRepository questionRepository;
 
     @Override
+    @CircuitBreaker(name = "fetching all questions")
     public List<QuestionResponseDto> getAllQuestions() {
         return questionRepository.findAll().stream().map(question ->
                 QuestionResponseDto.builder()
@@ -118,6 +120,7 @@ public class QuestionService implements QuestionServiceInterface {
     }
 
     @Override
+    @CircuitBreaker(name = "generating questions for exam instance")
     public List<Long> generateQuestionsForQuiz(String category, Integer numberOfQuestions) {
         List<Long> listOfQuestions = questionRepository.findAll().stream().filter(questionEntity -> String.valueOf(questionEntity.getExamCategory()).equalsIgnoreCase(category)).map(QuestionEntity::getId).collect(Collectors.toList());
         Collections.shuffle(listOfQuestions);
@@ -132,6 +135,7 @@ public class QuestionService implements QuestionServiceInterface {
     }
 
     @Override
+    @CircuitBreaker(name = "populating question using question id")
     public List<QuestionResponseDto> getQuestionsBasedOnId(List<Long> questionIds) {
         return questionIds.stream().map(id -> questionRepository.findById(id).get()).map(question -> QuestionResponseDto.builder()
                 .id(question.getId())
