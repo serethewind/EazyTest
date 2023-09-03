@@ -20,6 +20,11 @@ public class QuestionController {
 
     private QuestionServiceInterface questionService;
 
+    @GetMapping("welcome")
+    public ResponseEntity<String> getWelcome(){
+        return ResponseEntity.ok("Welcome");
+    }
+
     @GetMapping
     public ResponseEntity<List<QuestionResponseDto>> getAllQuestions(){
         return new ResponseEntity<>(questionService.getAllQuestions(), HttpStatus.OK);
@@ -33,6 +38,11 @@ public class QuestionController {
     @PostMapping("/create-question")
     public ResponseEntity<ResponseDto> createQuestion(@RequestBody QuestionRequestDto questionRequestDto){
         return new ResponseEntity<>(questionService.addQuestion(questionRequestDto), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/create-multiple-questions")
+    public ResponseEntity<List<ResponseDto>> createMultipleQuestions(@RequestBody List<QuestionRequestDto> questionRequestDtoList){
+        return new ResponseEntity<>(questionService.addMultipleQuestions(questionRequestDtoList), HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
@@ -49,7 +59,7 @@ public class QuestionController {
         return new ResponseEntity<>(questionService.generateQuestionsForQuiz(category, numberOfQuestions), HttpStatus.OK);
     }
 
-    @GetMapping("retrieve-generated-questions")
+    @PostMapping("retrieve-generated-questions")
     public ResponseEntity<List<QuestionResponseDto>> getQuestionsBasedOnId(@RequestBody List<Long> questionIds){
         return new ResponseEntity<>(questionService.getQuestionsBasedOnId(questionIds), HttpStatus.OK);
     }

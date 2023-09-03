@@ -13,11 +13,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/quiz-session")
+@RequestMapping("/api/v1/quiz-session/examiner")
 @AllArgsConstructor
 public class ExamController {
 
     private ExamServiceInterface examService;
+    @GetMapping("welcome")
+    public ResponseEntity<String> getWelcome(){
+        return ResponseEntity.ok("This page is for both admin and user");
+    }
+
+    @GetMapping("admin")
+    public ResponseEntity<String> getAdminWelcomeAddress(){
+        return ResponseEntity.ok("This page is only for Admin");
+    }
 
 
     /**
@@ -29,16 +38,6 @@ public class ExamController {
     @PostMapping("create-quiz")
     public ResponseEntity<ResponseDto> createQuizSession(@RequestBody ExamRequestDto examRequestDto) {
         return new ResponseEntity<>(examService.createQuizSession(examRequestDto), HttpStatus.CREATED);
-    }
-
-    @GetMapping
-    public ResponseEntity<ExamResponseDto> fetchExamSessionById(@PathVariable ("id") Long examId){
-        return new ResponseEntity<>(examService.getQuestionsForExamSession(examId), HttpStatus.OK);
-    }
-
-    @GetMapping("{id}/get-score")
-    public ResponseEntity<Integer> submitAndGetScoreForExamSession(@PathVariable("id") Long examId, @RequestBody List<AnswerResponseDto> answerResponseDto){
-        return new ResponseEntity<>(examService.calculateScoreForExamSession(examId, answerResponseDto), HttpStatus.OK);
     }
 
 }
